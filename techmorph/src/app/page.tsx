@@ -135,15 +135,15 @@ const benefitData: Benefit[] = [
 
 const testimonialData: Testimonial[] = [
     { quote: "TechMorph completely demystified project management for me. I went from feeling overwhelmed to confidently leading my final year project.", name: "Priya Sharma", title: "Engineering Student" },
-    { quote: "As a new manager, these templates are a lifesaver. They've saved me countless hours and helped my team stay aligned and on schedule.", name: "Rajesh Kumar", title: "Junior Project Manager" },
-    { quote: "Finally, a toolkit that's actually designed for beginners. The step-by-step guides are clear, concise, and incredibly practical.", name: "Anjali Mehta", title: "Freelance Designer" },
+    { quote: "As a new manager, these templates are a lifesaver. They&apos;ve saved me countless hours and helped my team stay aligned and on schedule.", name: "Rajesh Kumar", title: "Junior Project Manager" },
+    { quote: "Finally, a toolkit that&apos;s actually designed for beginners. The step-by-step guides are clear, concise, and incredibly practical.", name: "Anjali Mehta", title: "Freelance Designer" },
 ];
 
 const faqData: FAQ[] = [
     { question: "Who is TechMorph for?", answer: "TechMorph is designed for students, recent graduates, junior professionals, and anyone new to project management who needs a structured, easy-to-follow toolkit to manage their projects successfully." },
     { question: "What kind of templates are included?", answer: "We offer a wide range of templates including project proposals, Gantt charts, work breakdown structures (WBS), risk registers, stakeholder communication plans, and project closure reports." },
     { question: "Is this a software application?", answer: "Initially, TechMorph will be a comprehensive digital toolkit of downloadable templates, guides, and checklists. We are exploring the development of a full-fledged software platform based on user feedback from our waitlist." },
-    { question: "How much will it cost?", answer: "We are still finalizing our pricing. By joining the waitlist, you'll be the first to know about our launch and will receive an exclusive early-bird discount." },
+    { question: "How much will it cost?", answer: "We are still finalizing our pricing. By joining the waitlist, you&apos;ll be the first to know about our launch and will receive an exclusive early-bird discount." },
 ];
 
 
@@ -390,7 +390,7 @@ const Footer = () => (
                     <h3 className="font-semibold text-white mb-4">Navigate</h3>
                     <ul className="space-y-2">
                         {navLinks.map(link => (
-                             <li><a href={link.href} className="hover:text-white transition">{link.name}</a></li>
+                             <li key={link.name}><a href={link.href} className="hover:text-white transition">{link.name}</a></li>
                         ))}
                     </ul>
                 </div>
