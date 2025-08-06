@@ -170,12 +170,12 @@ const teamData: TeamMember[] = [
         image: "/Mani.jpg"
     },
     {
-        name: "SHAIK NYAMATHULLA",
+        name: "Shaik Nyamathulla",
         role: "Chief Human Resources Officer (CHRO)",
         image: "/Nyamath.jpg"
     },
     {
-        name: "Monica",
+        name: "B Monika",
         role: "Chief Marketing Officer (CMO)",
         image: "/Monika.jpg"
     }
