@@ -354,7 +354,6 @@ const Benefits = () => {
     );
 };
 
-
 const Testimonials = () => (
     <section id="about" className="py-20 sm:py-32 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
@@ -509,25 +508,35 @@ const Footer = () => (
 );
 
 const VideoModal = ({ show, onClose }: { show: boolean, onClose: () => void }) => {
+    // This effect handles pausing the video when the modal is closed.
+    useEffect(() => {
+        const videoElement = document.getElementById('demo-video') as HTMLVideoElement | null;
+        if (!show && videoElement) {
+            videoElement.pause();
+        }
+    }, [show]);
+
     if (!show) return null;
 
     return (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 animate-fade-in" onClick={onClose}>
-            <div className="bg-white rounded-lg p-4 sm:p-6 w-full max-w-4xl transform transition-all animate-scale-in" onClick={(e) => e.stopPropagation()}>
-                <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl sm:text-2xl font-semibold text-gray-800">TechMorph in Action</h3>
-                    <button onClick={onClose} className="text-gray-400 hover:text-gray-700 text-3xl transition">&times;</button>
+            <div className="bg-black rounded-lg p-2 sm:p-4 w-full max-w-5xl transform transition-all animate-scale-in" onClick={(e) => e.stopPropagation()}>
+                <div className="flex justify-end">
+                     <button onClick={onClose} className="text-white/70 hover:text-white text-4xl leading-none transition mb-2 focus:outline-none">&times;</button>
                 </div>
-                <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden shadow-inner">
-                    {/* In a real app, you would embed a YouTube/Vimeo iframe here */}
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-                        <div className="text-center">
-                            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                               <PlayIcon className="w-8 h-8 text-white"/>
-                            </div>
-                            <p className="text-gray-600 font-semibold">Our demo video is coming soon!</p>
-                        </div>
-                    </div>
+                <div className="aspect-video rounded-lg overflow-hidden shadow-2xl bg-black">
+                    {/* The video source points to the public folder. 
+                        Replace 'techmorph-demo.mp4' with your actual video file name. */}
+                    <video
+                        id="demo-video"
+                        className="w-full h-full object-contain"
+                        src="/Techmorph.mp4"
+                        controls
+                        autoPlay
+                        preload="auto"
+                    >
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </div>
