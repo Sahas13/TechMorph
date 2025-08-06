@@ -146,6 +146,40 @@ const faqData: FAQ[] = [
     { question: "How much will it cost?", answer: "We are still finalizing our pricing. By joining the waitlist, you'll be the first to know about our launch and will receive an exclusive early-bird discount." },
 ];
 
+// Team Member Interface
+interface TeamMember {
+    name: string;
+    role: string;
+    image: string;
+}
+
+const teamData: TeamMember[] = [
+    {
+        name: "Dr B Saroja",
+        role: "Chief Executive Officer (CEO)",
+        image: "/Saroja.jpg"
+    },
+    {
+        name: "Sharad Kulkarni",
+        role: "Chief Technology Officer (CTO)",
+        image: "/Kulakarni.jpg"
+    },
+    {
+        name: "P Mani Mohan",
+        role: "Chief Financial Officer (CFO)",
+        image: "/Mani.jpg"
+    },
+    {
+        name: "SHAIK NYAMATHULLA",
+        role: "Chief Human Resources Officer (CHRO)",
+        image: "/Nyamath.jpg"
+    },
+    {
+        name: "Monica",
+        role: "Chief Marketing Officer (CMO)",
+        image: "/Monika.jpg"
+    }
+];
 
 // ============================================================================
 // PAGE COMPONENTS
@@ -261,37 +295,65 @@ const Features = () => (
     </section>
 );
 
-const Benefits = () => (
-    <section id="benefits" className="py-20 sm:py-32 px-4 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-                 <div className="inline-block px-4 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold mb-4">The Outcome</div>
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Achieve More Than Just Project Completion</h2>
-                <p className="text-lg text-gray-600">Using TechMorph doesn't just get the job done—it transforms how you work and accelerates your career.</p>
-            </div>
-            <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
-                {benefitData.map((benefit, index) => (
-                    <div key={index} className="bg-white p-8 rounded-xl shadow-lg border border-gray-200/80">
-                         <h3 className="text-2xl font-bold text-gray-900 mb-6">{benefit.title}</h3>
-                         <ul className="space-y-4">
-                            {benefit.items.map((item, i) => (
-                                <li key={i} className="flex items-start gap-3">
-                                    <div className="flex-shrink-0 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mt-0.5">
-                                        <CheckIcon className="w-4 h-4 text-white" />
-                                    </div>
-                                    <div>
-                                        <span className="font-semibold block text-gray-800">{item.name}</span>
-                                        <span className="text-gray-600 text-sm">{item.description}</span>
-                                    </div>
-                                </li>
-                            ))}
-                         </ul>
+const Benefits = () => {
+    // State to track the currently active tab index, starts with the first tab
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    return (
+        <section id="benefits" className="py-20 sm:py-32 px-4 bg-gray-50">
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                    <div className="inline-block px-4 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold mb-4">The Outcome</div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Achieve More Than Just Project Completion</h2>
+                    <p className="text-lg text-gray-600">Using TechMorph doesn't just get the job done—it transforms how you work and accelerates your career.</p>
+                </div>
+
+                {/* Interactive Tabs Container */}
+                <div className="max-w-4xl mx-auto">
+                    {/* Tab Buttons */}
+                    <div className="flex flex-col sm:flex-row justify-center gap-2 mb-8 p-1 bg-gray-200/60 rounded-xl shadow-inner">
+                        {benefitData.map((benefit, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setActiveIndex(index)}
+                                className={`w-full px-4 py-3 text-center font-semibold rounded-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50
+                                    ${activeIndex === index
+                                        ? 'bg-white text-blue-600 shadow-md'
+                                        : 'bg-transparent text-gray-600 hover:bg-white/70'
+                                    }`
+                                }
+                            >
+                                {benefit.title}
+                            </button>
+                        ))}
                     </div>
-                ))}
+
+                    {/* Tab Content */}
+                    <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-200/80 min-h-[300px]">
+                        {/* Use key to trigger re-render animations on content change */}
+                        <div key={activeIndex} className="animate-fade-in-fast">
+                            <h3 className="text-2xl font-bold text-gray-900 mb-6">{benefitData[activeIndex].title}</h3>
+                            <ul className="space-y-4">
+                                {benefitData[activeIndex].items.map((item, i) => (
+                                    <li key={i} className="flex items-start gap-4">
+                                        <div className="flex-shrink-0 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mt-1">
+                                            <CheckIcon className="w-4 h-4 text-white" />
+                                        </div>
+                                        <div>
+                                            <span className="font-semibold block text-gray-800 text-lg">{item.name}</span>
+                                            <span className="text-gray-600">{item.description}</span>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-);
+        </section>
+    );
+};
+
 
 const Testimonials = () => (
     <section id="about" className="py-20 sm:py-32 px-4 bg-white">
@@ -311,6 +373,35 @@ const Testimonials = () => (
                             <div className="font-semibold text-gray-900">{testimonial.name}</div>
                             <div className="text-gray-500">{testimonial.title}</div>
                         </footer>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+);
+
+const Team = () => (
+    <section id="team" className="py-20 sm:py-32 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+                <div className="inline-block px-4 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold mb-4">Our Leadership</div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Meet Our Executive Team</h2>
+                <p className="text-lg text-gray-600">The leaders shaping the future of TechMorph</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                {teamData.map((member, index) => (
+                    <div key={member.name} className="group">
+                        <div className="relative overflow-hidden rounded-full aspect-square mb-4">
+                            <img 
+                                src={member.image} 
+                                alt={member.name}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                        <div className="text-center">
+                            <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
+                            <p className="text-blue-600 font-medium">{member.role}</p>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -481,6 +572,7 @@ export default function Home() {
                 <Features />
                 <Benefits />
                 <Testimonials />
+                <Team />
                 <FAQ />
                 <CallToAction />
             </main>
